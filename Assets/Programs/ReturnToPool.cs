@@ -7,9 +7,11 @@ public class ReturnToPool : MonoBehaviour
 {
     public GameObject Particle;
     public ObjectPool<GameObject> Pool;
+    Transform tf;
 
     void Start()
     {
+        tf = transform;
         //Particle = GetComponent<GameObject>();
         //var main = Particle.main;
         // Callbackを指定すると、パーティクルが終了するときに
@@ -30,7 +32,7 @@ public class ReturnToPool : MonoBehaviour
     */
     void Update()
     {
-        if (this.transform.position.y > 5) returnToPool();
+        if (tf.position.y > 5) returnToPool();
     }
 
     public void returnToPool()

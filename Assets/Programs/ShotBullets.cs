@@ -8,10 +8,12 @@ public class ShotBullets : MonoBehaviour
     public GameObject bullets;
     public int delay;
     private int flame;
+    Transform tf;
 
     // Start is called before the first frame update
     void Start()
     {
+        tf = transform;
         var vec = new Vector3(0, 200, 0);
         for (int i = 0; i < 40; i++)
         {
@@ -31,9 +33,9 @@ public class ShotBullets : MonoBehaviour
             //Instantiate(bullets, transform.position + new Vector3(-0.1f, 0, 0), Quaternion.identity);
 
             var go = Pool.Get();
-            go.transform.position = this.transform.position + transform.right * 0.15f;
+            go.transform.position = this.tf.position + tf.right * 0.15f;
             var go2 = Pool.Get();
-            go2.transform.position = this.transform.position + transform.right * -0.15f;
+            go2.transform.position = this.tf.position + tf.right * -0.15f;
             flame = 0;
         }
         flame++;
@@ -65,7 +67,7 @@ public class ShotBullets : MonoBehaviour
 
         // プールするパーティクルシステムの作成
         //var go = new GameObject($"Pooled Particle System: {_nextId++}");
-        var go = Instantiate(bullets, transform.position, Quaternion.identity);
+        var go = Instantiate(bullets, tf.position, Quaternion.identity);
         go.name = $"Pooled type1Bullet: {_nextId++}";
         //var ps = go.AddComponent<GameObject>();
         // パーティクルの終了挙動をエミッター停止 & エミッションのクリアとする

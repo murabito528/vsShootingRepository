@@ -841,6 +841,7 @@ GameObject:
   - component: {fileID: 477293761}
   - component: {fileID: 477293760}
   - component: {fileID: 477293762}
+  - component: {fileID: 477293763}
   m_Layer: 0
   m_Name: "\u81EA\u6A5F"
   m_TagString: Untagged
@@ -930,6 +931,18 @@ MonoBehaviour:
   delay: 3
   DefaultCapacity: 100
   MaxSize: 100
+--- !u!114 &477293763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477293759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec8e030f366e8546bbf6a2f13503ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &515393344
 GameObject:
   m_ObjectHideFlags: 0
