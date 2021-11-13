@@ -32,7 +32,7 @@ public class ReturnToPool : MonoBehaviour
     */
     void Update()
     {
-        if (tf.position.y > 5) returnToPool();
+        if (tf.position.y < -5 || Mathf.Abs(tf.position.x) > 3) returnToPool();
     }
 
     public void returnToPool()

@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     Touch myTouch;
     Vector2 ClickPos;
     Vector2 Goalpos;
-    Vector2 Cursorpos;
     Vector2 Lastpos;
 
     Transform tf;

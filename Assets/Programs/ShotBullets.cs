@@ -9,10 +9,12 @@ public class ShotBullets : MonoBehaviour
     public int delay;
     private int flame;
     Transform tf;
+    Quaternion default_rotate;
 
     // Start is called before the first frame update
     void Start()
     {
+        default_rotate = Quaternion.Euler(new Vector3(0, 0, 1));
         tf = transform;
         var vec = new Vector3(0, 200, 0);
         for (int i = 0; i < 40; i++)
@@ -21,10 +23,12 @@ public class ShotBullets : MonoBehaviour
             //go.GetComponent<ReturnToPool>().returnToPool();
             go.transform.position = vec;
             //Debug.Log("èâä˙");
+            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);
+            
+            
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (delay <= flame)
@@ -34,8 +38,11 @@ public class ShotBullets : MonoBehaviour
 
             var go = Pool.Get();
             go.transform.position = this.tf.position + tf.right * 0.15f;
-            var go2 = Pool.Get();
-            go2.transform.position = this.tf.position + tf.right * -0.15f;
+            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * -2);
+            go = Pool.Get();
+            go.transform.position = this.tf.position + tf.right * -0.15f;
+            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 2);
+
             flame = 0;
         }
         flame++;
