@@ -7,7 +7,7 @@ public class ShotBullets : MonoBehaviour
 {
     public GameObject bullets;
     public int delay;
-    private int flame;
+    private int frame;
     Transform tf;
     Quaternion default_rotate;
 
@@ -16,36 +16,37 @@ public class ShotBullets : MonoBehaviour
     {
         default_rotate = Quaternion.Euler(new Vector3(0, 0, 1));
         tf = transform;
-        var vec = new Vector3(0, 200, 0);
+        var vec = new Vector3(0, -20, 0);
+        //StartCoroutine(make());
+        
         for (int i = 0; i < 40; i++)
         {
             var go = Pool.Get();
-            //go.GetComponent<ReturnToPool>().returnToPool();
             go.transform.position = vec;
-            //Debug.Log("初期");
             go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);
-            
-            
+            //Pool.Release(go);
+            //Debug.Log("初期");
         }
+        
     }
 
     void Update()
     {
-        if (delay <= flame)
+        if (delay <= frame && Input.touchCount == 1)
         {
             //Instantiate(bullets, transform.position + new Vector3(0.1f, 0, 0), Quaternion.identity);
             //Instantiate(bullets, transform.position + new Vector3(-0.1f, 0, 0), Quaternion.identity);
 
             var go = Pool.Get();
             go.transform.position = this.tf.position + tf.right * 0.15f;
-            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * -2);
+            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * -0);
             go = Pool.Get();
             go.transform.position = this.tf.position + tf.right * -0.15f;
-            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 2);
+            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);
 
-            flame = 0;
+            frame = 0;
         }
-        flame++;
+        frame++;
     }
 
     //ここからpool
@@ -112,6 +113,7 @@ public class ShotBullets : MonoBehaviour
 
         // 逆にプールにパーティクルシステムを返却するときに
         // そのオブジェクトのアクティブをOFFにする
+
         ps.gameObject.SetActive(false);
     }
 
@@ -141,5 +143,17 @@ public class ShotBullets : MonoBehaviour
 
     private int _nextId = 1;
 
+    IEnumerator make()
+    {
+        yield return null;
+        var vec = new Vector3(0, -200, 0);
+        for (int i = 0; i < 40; i++)
+        {
+            var go = Pool.Get();
+            go.transform.position = vec;
+            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);
+            //Debug.Log("初期");
+        }
+    }
     
 }

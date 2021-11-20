@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour
     Vector2 Lastpos;
 
     Transform tf;
+    Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         tf = transform;
+        rb = GetComponent<Rigidbody2D>();
         Goalpos = tf.position;
     }
 
@@ -39,7 +41,8 @@ public class PlayerController : MonoBehaviour
                         Goalpos = Goalpos + (ClickPos - Lastpos);
                         Lastpos = ClickPos;
 
-                        tf.position = Goalpos;
+                        //tf.position = Goalpos;
+                        rb.MovePosition(Goalpos);
                         break;
                     case 1:
 

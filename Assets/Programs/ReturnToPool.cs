@@ -8,9 +8,12 @@ public class ReturnToPool : MonoBehaviour
     public GameObject Particle;
     public ObjectPool<GameObject> Pool;
     Transform tf;
+    SpriteRenderer spriterenderer;
+    Color32 color32;
 
     void Start()
     {
+        spriterenderer = this.GetComponent<SpriteRenderer>();
         tf = transform;
         //Particle = GetComponent<GameObject>();
         //var main = Particle.main;
@@ -37,6 +40,9 @@ public class ReturnToPool : MonoBehaviour
 
     public void returnToPool()
     {
+        color32 = spriterenderer.color;
+        color32.g = 255;
+        spriterenderer.material.color = color32;
         Pool.Release(this.gameObject);
     }
 }
