@@ -91,8 +91,8 @@ public class Enemy_Pool : MonoBehaviour
 
         // パーティクルが終了したらプールに返却するための
         // 挙動を実装したコンポーネントをアタッチ
-        var returnToPool = go.AddComponent<ReturnToPool>();
-        returnToPool.Pool = Pool;
+        //var returnToPool = go.AddComponent<ReturnToPool>();
+        //returnToPool.Pool = Pool;
 
         //Debug.Log($"Created {ps.gameObject.name}");
 
