@@ -6,7 +6,9 @@ using UnityEngine.Pool;
 public class Enemy_type1_Controller : MonoBehaviour
 {
     public ObjectPool<GameObject> Pool;
-    public ObjectPool<GameObject> myPool;
+    public ObjectPool<GameObject> myPool;//this
+    EffectPoolController epc;
+
     Rigidbody2D rb;
     Transform tf;
     public float speed;
@@ -21,6 +23,7 @@ public class Enemy_type1_Controller : MonoBehaviour
     {
         Pool = GameObject.FindWithTag("P1player").GetComponent<ShotBullets>().Pool;
         myPool = GameObject.FindWithTag("MainCamera").GetComponent<Enemy_Pool>().Pool;
+        epc = GameObject.FindWithTag("MainCamera").GetComponent<EffectPoolController>();
         rb = GetComponent<Rigidbody2D>();
         tf = GetComponent<Transform>();
     }
@@ -29,9 +32,11 @@ public class Enemy_type1_Controller : MonoBehaviour
     void OnEnable()
     {
         HP = MaxHP;
-    }*/
+    }
+    */
     void OnDisable()
     {
+        //epc.BurstEffect(transform.position,transform.rotation);
         HP = MaxHP;
     }
 
@@ -45,6 +50,11 @@ public class Enemy_type1_Controller : MonoBehaviour
             frame = 0;
         }
         frame++;
+
+        if(Mathf.Abs(this.transform.position.x) >= 3.5 || Mathf.Abs(this.transform.position.y) >= 6)
+        {
+            myPool.Release(this.gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,7 +64,8 @@ public class Enemy_type1_Controller : MonoBehaviour
             Pool.Release(collision.gameObject);
             if (HP <= 0)
             {
-                Debug.Log("HP:" + HP);
+                //Debug.Log("HP:" + HP);
+                epc.BurstEffect(transform.position, transform.rotation);
                 myPool.Release(this.gameObject);
             }
         }

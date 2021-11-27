@@ -336,10 +336,12 @@
 -r:"Library/Bee/artifacts/1300b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Programs/Buletts_type1.cs"
+"Assets/Programs/EffectPoolController.cs"
 "Assets/Programs/Enemy_Pool.cs"
 "Assets/Programs/Enemy_type1_Controller.cs"
 "Assets/Programs/PlayerController.cs"
 "Assets/Programs/ReturnToPool.cs"
+"Assets/Programs/ReturnToPool_effect.cs"
 "Assets/Programs/ShotBullets.cs"
 "Assets/Programs/StartSetting.cs"
 -langversion:8.0

@@ -11,6 +11,8 @@ public class Enemy_Pool : MonoBehaviour
     Transform tf;
     Quaternion default_rotate;
 
+    
+
     Vector3 zero;
 
     Vector3 vec;
@@ -22,6 +24,8 @@ public class Enemy_Pool : MonoBehaviour
         vec = new Vector3(2.5f, 2.5f,0);
         rotate = new Vector3(0, 0, 1);
         zero = new Vector3(0, 0, 0);
+
+        //epc = GameObject.FindWithTag("MainCamera").GetComponent<EffectPoolController>();
     }
 
     // Update is called once per frame
