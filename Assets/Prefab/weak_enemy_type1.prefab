@@ -136,4 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.1
-  MaxHP: 5
+  shotwait: 0
+  frame: 0
+  waittime: 300
+  MaxHP: 3

@@ -16,13 +16,14 @@ public class Enemy_Pool : MonoBehaviour
     Vector3 zero;
 
     Vector3 vec;
-    Vector3 rotate;
+    Vector3 position;
+    Quaternion rotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        vec = new Vector3(2.5f, 2.5f,0);
-        rotate = new Vector3(0, 0, 1);
+        vec = new Vector3(0, 0,0);
+        //rotate = new Vector3(0, 0, 0);
         zero = new Vector3(0, 0, 0);
 
         //epc = GameObject.FindWithTag("MainCamera").GetComponent<EffectPoolController>();
@@ -34,20 +35,43 @@ public class Enemy_Pool : MonoBehaviour
         
         if (frame > delay)
         {
-            StartCoroutine(summon());
+            switch (Random.Range(0, 2))
+            {
+                case 0:
+                    vec.x = 2.5f;
+                    vec.y = 2.5f;
+                    vec.z = 0;
+                    position = vec;
+                    vec.x = 0;
+                    vec.y = 0;
+                    vec.z = 135;
+                    rotation = Quaternion.Euler(vec);
+                    break;
+                case 1:
+                    vec.x = -2.5f;
+                    vec.y = 2.5f;
+                    vec.z = 0;
+                    position = vec;
+                    vec.x = 0;
+                    vec.y = 0;
+                    vec.z = -135;
+                    rotation = Quaternion.Euler(vec);
+                    break;
+            }
+            StartCoroutine(summon(position,rotation));
             frame = 0;
         }
         frame++;
     }
 
-    IEnumerator summon()
+    IEnumerator summon(Vector3 pos,Quaternion qua)
     {
         //Debug.Log("summon");
         for (int i = 0; i < 4; i++)
         {
             var go = Pool.Get();
-            go.transform.position = vec;
-            go.transform.rotation = Quaternion.Euler(rotate * 135);
+            go.transform.position = pos;
+            go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
             for (int j = 0; j < 15; j++) yield return null;
         }
     }

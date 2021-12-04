@@ -62,6 +62,8 @@
     <Compile Include="Assets\Programs\StartSetting.cs" />
     <Compile Include="Assets\Programs\Enemy_type1_Controller.cs" />
     <Compile Include="Assets\Programs\ReturnToPool_effect.cs" />
+    <Compile Include="Assets\Programs\EnemyBulletpool_t1.cs" />
+    <Compile Include="Assets\Programs\EnemyBulletCont_t1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
