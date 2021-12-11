@@ -7,11 +7,13 @@ public class EnemyBulletCont_t1 : MonoBehaviour
 {
     Transform tf;
     public float speed;
-    float speeddown;
+    [SerializeField] float speeddown;
     Color32 color32;
     SpriteRenderer spriterenderer;
     Vector3 rotate_tmp;
     Vector3 bounce_tmp;
+
+    public Vector3 defaultscale;
 
     GameObject MainCamera;
     public ObjectPool<GameObject> EBulletPool;
@@ -36,6 +38,9 @@ public class EnemyBulletCont_t1 : MonoBehaviour
     {
         tf.position += tf.up * (speed-speeddown);
         speeddown *= 0.85f;
+
+        transform.localScale = defaultscale + defaultscale * 30 * speeddown;
+        //color32.a = (byte)(255 - 255 * speeddown);
 
         if (tf.position.z == 0)
         {

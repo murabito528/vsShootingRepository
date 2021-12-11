@@ -15,6 +15,7 @@ public class Enemy_type1_Controller : MonoBehaviour
     public float speed;
     [SerializeField] int shotwait;
     [SerializeField] int frame;
+    bool turn;
     public int waittime;
 
     public int MaxHP;
@@ -33,7 +34,7 @@ public class Enemy_type1_Controller : MonoBehaviour
 
         EBulletPool_t1 = MainCamera.GetComponent<EnemyBulletpool_t1>().Pool;
         BulletPool = P1Player.GetComponent<ShotBullets>().Pool;
-        EnemyPool = MainCamera.GetComponent<Enemy_Pool>().Pool;
+        EnemyPool = MainCamera.GetComponent<Enemy_Pool_t1>().Pool;
 
         epc = MainCamera.GetComponent<EffectPoolController>();
 
@@ -43,37 +44,54 @@ public class Enemy_type1_Controller : MonoBehaviour
         HP = MaxHP;
         shotwait = 260;
         frame = 0;
+        turn = false;
     }
 
-    /*
-    void OnEnable()
-    {
-        HP = MaxHP;
-    }
-    */
+
     void OnDisable()
     {
         //epc.BurstEffect(transform.position,transform.rotation);
         HP = MaxHP;
         shotwait = 260;
         frame = 0;
+        turn = false;
 
         var go = EBulletPool_t1.Get();
         go.transform.position = transform.position;
         vec_tmp = P1Player.transform.position - transform.position;
-        go.transform.rotation = Quaternion.FromToRotation(Vector3.down, vec_tmp);
+        go.transform.rotation = Quaternion.FromToRotation(Vector3.up, -vec_tmp);
 
         go = EBulletPool_t1.Get();
         go.transform.position = transform.position;
         vec_tmp = P1Player.transform.position - transform.position;
-        go.transform.rotation = Quaternion.FromToRotation(Vector3.down, vec_tmp);
+        go.transform.rotation = Quaternion.FromToRotation(Vector3.up, -vec_tmp);
         go.transform.Rotate(0, 0, 5);
 
         go = EBulletPool_t1.Get();
         go.transform.position = transform.position;
         vec_tmp = P1Player.transform.position - transform.position;
-        go.transform.rotation = Quaternion.FromToRotation(Vector3.down, vec_tmp);
+        go.transform.rotation = Quaternion.FromToRotation(Vector3.up, -vec_tmp);
         go.transform.Rotate(0, 0, -5);
+        shotwait = 0;
+    }
+
+    void OnEnable()
+    {
+        turn = false;
+        StartCoroutine("Enablenext");
+    }
+
+    IEnumerator Enablenext()
+    {
+        yield return null;
+        if (transform.rotation.eulerAngles.z == 0)
+        {
+            shotwait = 245;
+        }
+        else
+        {
+            shotwait = 260;
+        }
     }
 
     // Update is called once per frame
@@ -102,15 +120,29 @@ public class Enemy_type1_Controller : MonoBehaviour
             shotwait = 0;
         }
 
-        if(frame == 20)
+        //if(frame == 20)
+        if(turn == false && Mathf.Abs(tf.transform.position.y - 1) <= 0.4)
         {
-            if(transform.rotation.eulerAngles.z == 135)
+            //Debug.Log(tf.rotation.eulerAngles.z);
+            turn = true;
+            switch (transform.rotation.eulerAngles.z)
             {
-                transform.rotation = Quaternion.Euler(Vector3.forward * 90);
-            }
-            else
-            {
-                transform.rotation = Quaternion.Euler(Vector3.forward * -90);
+                case 135:
+                    tf.rotation = Quaternion.Euler(Vector3.forward * 90);
+                    break;
+                case 225:
+                    tf.rotation = Quaternion.Euler(Vector3.forward * -90);
+                    break;
+                case 0:
+                    if (tf.position.x < 0)
+                    {
+                        tf.rotation = Quaternion.Euler(Vector3.forward * -45);
+                    }
+                    else
+                    {
+                        tf.rotation = Quaternion.Euler(Vector3.forward * 45);
+                    }
+                    break;
             }
         }
 
