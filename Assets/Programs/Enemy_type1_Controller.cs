@@ -101,6 +101,17 @@ public class Enemy_type1_Controller : MonoBehaviour
         
         if(shotwait > waittime)
         {
+            for(int i = 0; i < 3; i++)
+            {
+                var go = EBulletPool_t1.Get();
+                go.transform.position = transform.position;
+                go.transform.Translate(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                vec_tmp = P1Player.transform.position - transform.position;
+                go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
+            }
+            shotwait = 0;
+
+            /*
             var go = EBulletPool_t1.Get();
             go.transform.position = transform.position;
             vec_tmp = P1Player.transform.position - transform.position;
@@ -118,6 +129,7 @@ public class Enemy_type1_Controller : MonoBehaviour
             go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
             go.transform.Rotate(0, 0, -5);
             shotwait = 0;
+            */
         }
 
         //if(frame == 20)
@@ -156,7 +168,7 @@ public class Enemy_type1_Controller : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.transform.position.z == this.gameObject.transform.position.z&&collision.gameObject.tag == "P1bullet")
+        if(collision.gameObject.transform.position.z == this.gameObject.transform.position.z&&collision.CompareTag("P1bullet"))
         {
             HP--;
             BulletPool.Release(collision.gameObject);

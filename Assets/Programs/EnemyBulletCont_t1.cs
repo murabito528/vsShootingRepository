@@ -13,6 +13,8 @@ public class EnemyBulletCont_t1 : MonoBehaviour
     Vector3 rotate_tmp;
     Vector3 bounce_tmp;
 
+    Vector3 tf_tmp;
+
     public Vector3 defaultscale;
 
     GameObject MainCamera;
@@ -45,13 +47,15 @@ public class EnemyBulletCont_t1 : MonoBehaviour
         if (tf.position.z == 0)
         {
             color32 = spriterenderer.color;
+            color32.r = 255;
             color32.g = 255;
             spriterenderer.material.color = color32;
         }
         else
         {
             color32 = spriterenderer.color;
-            color32.g = 64;
+            color32.r = 75;
+            color32.g = 36;
             spriterenderer.material.color = color32;
         }
 
@@ -70,7 +74,21 @@ public class EnemyBulletCont_t1 : MonoBehaviour
         if (tf.position.y < -5 || Mathf.Abs(tf.position.x) > 3)
         {
             EBulletPool.Release(this.gameObject);
+        }
+        //Debug.Log((int)Mathf.Round((tf.position.x + 3) * 5) + "," + (int)Mathf.Round((tf.position.y + 5) * 5));
 
+        if (tf.position.z != 1)
+        {
+            tf_tmp = tf.position;
+            for (int i = 0; i < 5; i++)
+            {
+                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)] += 5;
+                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) + 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)] += 3 * (35 - i) / 35;
+                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) - 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)] += 3 * (35 - i) / 35;
+                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) + 1, 0, 49)] += 3 * (35 - i) / 35;
+                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) - 1, 0, 49)] += 3 * (35 - i) / 35;
+                tf_tmp += tf.up * speed;
+            }
         }
     }
 }

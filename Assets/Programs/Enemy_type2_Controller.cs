@@ -156,7 +156,7 @@ public class Enemy_type2_Controller : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.transform.position.z == this.gameObject.transform.position.z && collision.gameObject.tag == "P1bullet")
+        if (collision.gameObject.transform.position.z == this.gameObject.transform.position.z && collision.CompareTag("P1bullet"))
         {
             HP--;
             BulletPool.Release(collision.gameObject);

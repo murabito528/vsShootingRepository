@@ -344,6 +344,7 @@
 "Assets/Programs/Enemy_Pool_t2.cs"
 "Assets/Programs/Enemy_type1_Controller.cs"
 "Assets/Programs/Enemy_type2_Controller.cs"
+"Assets/Programs/P2Controller.cs"
 "Assets/Programs/PlayerController.cs"
 "Assets/Programs/ReturnToPool.cs"
 "Assets/Programs/ReturnToPool_effect.cs"
