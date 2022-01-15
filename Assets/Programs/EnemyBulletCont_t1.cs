@@ -54,8 +54,9 @@ public class EnemyBulletCont_t1 : MonoBehaviour
         else
         {
             color32 = spriterenderer.color;
-            color32.r = 75;
-            color32.g = 36;
+            color32.r = 64;
+            color32.g = 64;
+            color32.b = 64;
             spriterenderer.material.color = color32;
         }
 
@@ -82,11 +83,11 @@ public class EnemyBulletCont_t1 : MonoBehaviour
             tf_tmp = tf.position;
             for (int i = 0; i < 5; i++)
             {
-                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)] += 5;
-                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) + 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)] += 3 * (35 - i) / 35;
-                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) - 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)] += 3 * (35 - i) / 35;
-                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) + 1, 0, 49)] += 3 * (35 - i) / 35;
-                P2Controller.risk[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) - 1, 0, 49)] += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 5;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) + 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) - 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) + 1, 0, 49)].risk += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) - 1, 0, 49)].risk += 3 * (35 - i) / 35;
                 tf_tmp += tf.up * speed;
             }
         }
