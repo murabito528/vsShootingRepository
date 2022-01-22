@@ -40,9 +40,9 @@ public class ReturnToPool : MonoBehaviour
 
     public void returnToPool()
     {
-        color32 = spriterenderer.color;
-        color32.g = 255;
-        spriterenderer.material.color = color32;
+        //color32 = spriterenderer.color;
+        //color32.g = 255;
+        //spriterenderer.material.color = color32;
         Pool.Release(this.gameObject);
     }
 }

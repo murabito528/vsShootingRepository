@@ -24,12 +24,13 @@ public class Node
 public class P2Controller : MonoBehaviour
 {
     Transform tf;
-    Vector2 vec_tmp;
+    Vector3 vec_tmp;
     public static Node[][] node;
     public static int[][] split_risk;
     void Start()
     {
         tf = transform;
+        vec_tmp.z = 1;
         route = new List<Node>();
         opennode = new List<Node>();
         closenode = new List<Node>();
@@ -73,6 +74,7 @@ public class P2Controller : MonoBehaviour
             //Debug.Log("moveTo" + route[0].x + "," + route[0].y + "," + route.Count);
             vec_tmp.x = (float)route[0].x / 5 - 3;
             vec_tmp.y = (float)route[0].y / 5 - 5;
+            vec_tmp.z = 1;
             tf.position = vec_tmp;
             //Debug.Log("moveTo" + vec_tmp);
             route.RemoveAt(0);
@@ -323,8 +325,10 @@ public class P2Controller : MonoBehaviour
             for(int j = 0; j < 10; j++)
             {
                 split_risk[i][j] = 0;
-                //split_risk[i][j] += Mathf.Max((j-4)*6,0) + Mathf.Max(Mathf.Abs(i-9)-2,0)*60;
-                if (j == 0) split_risk[i][j] += 40; 
+                split_risk[i][j] += Mathf.Max((j-2)*1,0);
+                if (i == 0 || i == 5) split_risk[i][j] += 10;
+                if (i == 1 || i == 4) split_risk[i][j] += 5;
+                if (j == 0) split_risk[i][j] += 5; 
                 for (int k = 0; k < 5; k++)
                 {
                     for(int l = 0; l < 5; l++)
@@ -361,7 +365,7 @@ public class P2Controller : MonoBehaviour
         goalnode = node[min_index_i * 5 + Random.Range(0, 5)][min_index_j * 5 + Random.Range(0, 5)];
 
     }
-
+#if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         if (!EditorApplication.isPlaying)
@@ -393,4 +397,5 @@ public class P2Controller : MonoBehaviour
             }
         }
     }
+#endif
 }

@@ -24,20 +24,49 @@ public class Buletts_type1 : MonoBehaviour
     void Update()
     {
         tf.position += tf.up * speed;
-
-        if(tf.position.z == 0)
+        color32.a = 255;
+        if (this.tag == "P1bullet")
         {
-            color32 = spriterenderer.color;
-            color32.g = 255;
-            spriterenderer.material.color = color32;
-        }
-        else
-        {
-            color32 = spriterenderer.color;
-            color32.g = 64;
-            spriterenderer.material.color = color32;
-        }
+            if (tf.position.z == 0)
+            {
+                //color32 = spriterenderer.color;
+                color32.r = 0;
+                color32.g = 255;
+                color32.b = 0;
 
+                //spriterenderer.material.color = color32;
+            }
+            else
+            {
+                //color32 = spriterenderer.color;
+                color32.r = 0;
+                color32.g = 64;
+                color32.b = 0;
+                //spriterenderer.material.color = color32;
+            }
+            //Debug.Log("?");
+        }
+        if (this.tag == "P2bullet")
+        {
+            if (tf.position.z == 0)
+            {
+                //color32 = spriterenderer.color;
+                color32.r = 255;
+                color32.g = 0;
+                color32.b = 0;
+                //spriterenderer.material.color = color32;
+            }
+            else
+            {
+                //color32 = spriterenderer.color;
+                color32.r = 128;
+                color32.g = 0;
+                color32.b = 0;
+                //spriterenderer.material.color = color32;
+            }
+            //Debug.Log("??");
+        }
+        spriterenderer.material.color = color32;
         if (tf.position.y > 5)
         {
             rotate_tmp.x = 0;
@@ -46,7 +75,14 @@ public class Buletts_type1 : MonoBehaviour
             tf.rotation = Quaternion.Euler(rotate_tmp);
             bounce_tmp.y = 5;
             bounce_tmp.x = tf.position.x;
-            bounce_tmp.z = 1;
+            if (tf.position.z == 0)
+            {
+                bounce_tmp.z = 1;
+            }
+            else
+            {
+                bounce_tmp.z = 0;
+            }
             tf.position = bounce_tmp;
             //color32 = spriterenderer.color;
             //color32.g = 64;

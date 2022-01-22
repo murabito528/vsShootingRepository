@@ -39,3 +39,18 @@ Update Mode: updateDependencies
 The following packages were 更新済:
   com.unity.ide.rider をバージョン 2.0.7 から 3.0.5 へ
   com.unity.timeline をバージョン 1.4.8 から 1.5.4 へ
+
+=== Sun Jan 16 11:48:12 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were 更新済:
+  com.unity.2d.animation をバージョン 5.0.7 から 7.0.3 へ
+  com.unity.2d.pixel-perfect をバージョン 4.0.1 から 5.0.1 へ
+  com.unity.2d.psdimporter をバージョン 4.1.0 から 6.0.2 へ
+  com.unity.2d.spriteshape をバージョン 5.1.4 から 7.0.3 へ
+  com.unity.collab-proxy をバージョン 1.11.2 から 1.15.7 へ
+  com.unity.ide.rider をバージョン 3.0.5 から 3.0.9 へ
+  com.unity.ide.visualstudio をバージョン 2.0.11 から 2.0.12 へ
+  com.unity.timeline をバージョン 1.5.4 から 1.6.3 へ

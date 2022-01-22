@@ -95,11 +95,24 @@ public class EnemySummoner : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             go = Enemy_t1Pool.Get();
+            pos.z = 0;
+            go.transform.position = pos;
+            go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
+            //for (int j = 0; j < 15; j++) yield return null;
+
+            go = Enemy_t1Pool.Get();
+            pos.z = 1;
             go.transform.position = pos;
             go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
             for (int j = 0; j < 15; j++) yield return null;
         }
         go = Enemy_t2Pool.Get();
+        pos.z = 0;
+        go.transform.position = pos;
+        go.transform.rotation = qua;
+
+        go = Enemy_t2Pool.Get();
+        pos.z = 1;
         go.transform.position = pos;
         go.transform.rotation = qua;
     }

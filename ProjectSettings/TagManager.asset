@@ -9,6 +9,7 @@ TagManager:
   - EnemyBullet
   - Enemy
   - P2player
+  - P2bullet
   layers:
   - Default
   - TransparentFX

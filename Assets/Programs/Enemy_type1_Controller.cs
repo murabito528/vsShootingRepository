@@ -23,23 +23,31 @@ public class Enemy_type1_Controller : MonoBehaviour
 
     GameObject MainCamera;
     GameObject P1Player;
+    GameObject P2Player;
+
+    Vector3 tf_tmp;
 
     Vector3 vec_tmp;
+
+    SpriteRenderer spriterenderer;
+    Color32 color32;
 
     // Start is called before the first frame update
     void Start()
     {
         P1Player = GameObject.FindWithTag("P1player");
+        P2Player = GameObject.FindWithTag("P2player");
         MainCamera = GameObject.FindWithTag("MainCamera");
 
         EBulletPool_t1 = MainCamera.GetComponent<EnemyBulletpool_t1>().Pool;
-        BulletPool = P1Player.GetComponent<ShotBullets>().Pool;
+        BulletPool = MainCamera.GetComponent<Bullet_weakt1_Pool>().Pool;
         EnemyPool = MainCamera.GetComponent<Enemy_Pool_t1>().Pool;
 
         epc = MainCamera.GetComponent<EffectPoolController>();
 
         rb = GetComponent<Rigidbody2D>();
         tf = GetComponent<Transform>();
+        spriterenderer = GetComponent<SpriteRenderer>();
 
         HP = MaxHP;
         shotwait = 260;
@@ -55,24 +63,28 @@ public class Enemy_type1_Controller : MonoBehaviour
         shotwait = 260;
         frame = 0;
         turn = false;
-
+        //Œ‚‚¿•Ô‚µ(”½‘ÎŒü‚«‚Ì)
         var go = EBulletPool_t1.Get();
         go.transform.position = transform.position;
         vec_tmp = P1Player.transform.position - transform.position;
+        vec_tmp.z = 0;
         go.transform.rotation = Quaternion.FromToRotation(Vector3.up, -vec_tmp);
 
         go = EBulletPool_t1.Get();
         go.transform.position = transform.position;
         vec_tmp = P1Player.transform.position - transform.position;
+        vec_tmp.z = 0;
         go.transform.rotation = Quaternion.FromToRotation(Vector3.up, -vec_tmp);
         go.transform.Rotate(0, 0, 5);
 
         go = EBulletPool_t1.Get();
         go.transform.position = transform.position;
         vec_tmp = P1Player.transform.position - transform.position;
+        vec_tmp.z = 0;
         go.transform.rotation = Quaternion.FromToRotation(Vector3.up, -vec_tmp);
         go.transform.Rotate(0, 0, -5);
         shotwait = 0;
+        
     }
 
     void OnEnable()
@@ -97,39 +109,52 @@ public class Enemy_type1_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tf.position.z == 0)
+        {
+            color32 = spriterenderer.color;
+            color32.r = 255;
+            color32.g = 255;
+            color32.b = 255;
+            spriterenderer.material.color = color32;
+        }
+        else
+        {
+            color32 = spriterenderer.color;
+            color32.r = 64;
+            color32.g = 72;
+            color32.b = 64;
+            spriterenderer.material.color = color32;
+        }
+
         rb.MovePosition(transform.position + transform.up * speed);
         
         if(shotwait > waittime)
         {
-            for(int i = 0; i < 3; i++)
+            if (tf.position.z == 0)
             {
-                var go = EBulletPool_t1.Get();
-                go.transform.position = transform.position;
-                go.transform.Translate(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-                vec_tmp = P1Player.transform.position - transform.position;
-                go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
+                for (int i = 0; i < 3; i++)
+                {
+                    var go = EBulletPool_t1.Get();
+                    go.transform.position = transform.position;
+                    go.transform.Translate(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                    vec_tmp = P1Player.transform.position - transform.position;
+                    vec_tmp.z = 0;
+                    go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    var go = EBulletPool_t1.Get();
+                    go.transform.position = transform.position;
+                    go.transform.Translate(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 1);
+                    vec_tmp = P2Player.transform.position - transform.position;
+                    vec_tmp.z = 0;
+                    go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
+                }
             }
             shotwait = 0;
-
-            /*
-            var go = EBulletPool_t1.Get();
-            go.transform.position = transform.position;
-            vec_tmp = P1Player.transform.position - transform.position;
-            go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
-
-            go = EBulletPool_t1.Get();
-            go.transform.position = transform.position;
-            vec_tmp = P1Player.transform.position - transform.position;
-            go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
-            go.transform.Rotate(0,0,5);
-
-            go = EBulletPool_t1.Get();
-            go.transform.position = transform.position;
-            vec_tmp = P1Player.transform.position - transform.position;
-            go.transform.rotation = Quaternion.FromToRotation(Vector3.up, vec_tmp);
-            go.transform.Rotate(0, 0, -5);
-            shotwait = 0;
-            */
         }
 
         //if(frame == 20)
@@ -165,9 +190,45 @@ public class Enemy_type1_Controller : MonoBehaviour
         {
             EnemyPool.Release(this.gameObject);
         }
+
+        if (tf.position.z != 0)
+        {
+            tf_tmp = tf.position;
+            for (int i = 0; i < 5; i++)
+            {
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 5;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) + 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) - 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) + 1, 0, 49)].risk += 3 * (35 - i) / 35;
+                P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) - 1, 0, 49)].risk += 3 * (35 - i) / 35;
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1bullet"))//P1‘¤
+        {
+            HP--;
+            BulletPool.Release(collision.gameObject);
+            if (HP <= 0)
+            {
+                epc.BurstEffect(transform.position, transform.rotation);
+                EnemyPool.Release(this.gameObject);
+            }
+        }
+        if (tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2bullet"))//P2‘¤
+        {
+            HP--;
+            BulletPool.Release(collision.gameObject);
+            if (HP <= 0)
+            {
+                epc.BurstEffect(transform.position, transform.rotation);
+                EnemyPool.Release(this.gameObject);
+            }
+        }
+
+
+        /*
         if(collision.gameObject.transform.position.z == this.gameObject.transform.position.z&&collision.CompareTag("P1bullet"))
         {
             HP--;
@@ -179,5 +240,6 @@ public class Enemy_type1_Controller : MonoBehaviour
                 EnemyPool.Release(this.gameObject);
             }
         }
+        */
     }
 }

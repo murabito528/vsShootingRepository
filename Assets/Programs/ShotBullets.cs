@@ -5,50 +5,51 @@ using UnityEngine.Pool;
 
 public class ShotBullets : MonoBehaviour
 {
-    public GameObject bullets;
+    public ObjectPool<GameObject> BulletPool;
+    //public GameObject bullets;
     public int delay;
-    private int frame;
+    [SerializeField] private int frame;
     Transform tf;
     Quaternion default_rotate;
+    GameObject MainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
+        MainCamera = GameObject.FindWithTag("MainCamera");
+        BulletPool = MainCamera.GetComponent<Bullet_weakt1_Pool>().Pool;
         default_rotate = Quaternion.Euler(new Vector3(0, 0, 1));
-        tf = transform;
-        var vec = new Vector3(0, -20, 0);
-        //StartCoroutine(make());
-        
-        for (int i = 0; i < 40; i++)
-        {
-            var go = Pool.Get();
-            go.transform.position = vec;
-            go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);
-            //Pool.Release(go);
-            //Debug.Log("初期");
-        }
+        tf = this.transform;
         
     }
 
     void Update()
     {
-        if (delay <= frame && Input.touchCount == 1)
+        if (delay <= frame && (tf.position.z == 1 || Input.touchCount == 1))
         {
-            //Instantiate(bullets, transform.position + new Vector3(0.1f, 0, 0), Quaternion.identity);
-            //Instantiate(bullets, transform.position + new Vector3(-0.1f, 0, 0), Quaternion.identity);
-
-            var go = Pool.Get();
+            var go = BulletPool.Get();
             go.transform.position = this.tf.position + tf.right * 0.15f;
             go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * -0);
-            go = Pool.Get();
+            go = BulletPool.Get();
             go.transform.position = this.tf.position + tf.right * -0.15f;
             go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);
+
+            if(tf.position.z == 0)
+            {
+                go.tag = "P1bullet";
+                //Debug.Log("shotp1");
+            }
+            else
+            {
+                go.tag = "P2bullet";
+                //Debug.Log("shotp2");
+            }
 
             frame = 0;
         }
         frame++;
     }
-
+    /*
     //ここからpool
 
     // 初期のプールサイズ
@@ -155,5 +156,5 @@ public class ShotBullets : MonoBehaviour
             //Debug.Log("初期");
         }
     }
-    
+    */
 }

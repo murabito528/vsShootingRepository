@@ -49,6 +49,7 @@ public class EnemyBulletCont_t1 : MonoBehaviour
             color32 = spriterenderer.color;
             color32.r = 255;
             color32.g = 255;
+            color32.b = 255;
             spriterenderer.material.color = color32;
         }
         else
@@ -62,14 +63,28 @@ public class EnemyBulletCont_t1 : MonoBehaviour
 
         if (tf.position.y > 5)
         {
-            rotate_tmp.x = 0;
-            rotate_tmp.y = 0;
-            rotate_tmp.z = 180 - tf.rotation.eulerAngles.z;
-            tf.rotation = Quaternion.Euler(rotate_tmp);
-            bounce_tmp.y = 5;
-            bounce_tmp.x = tf.position.x;
-            bounce_tmp.z = 1;
-            tf.position = bounce_tmp;
+            if (tf.position.z == 0)
+            {
+                rotate_tmp.x = 0;
+                rotate_tmp.y = 0;
+                rotate_tmp.z = 180 - tf.rotation.eulerAngles.z;
+                tf.rotation = Quaternion.Euler(rotate_tmp);
+                bounce_tmp.y = 5;
+                bounce_tmp.x = tf.position.x;
+                bounce_tmp.z = 1;
+                tf.position = bounce_tmp;
+            }
+            else
+            {
+                rotate_tmp.x = 0;
+                rotate_tmp.y = 0;
+                rotate_tmp.z = 180 - tf.rotation.eulerAngles.z;
+                tf.rotation = Quaternion.Euler(rotate_tmp);
+                bounce_tmp.y = 5;
+                bounce_tmp.x = tf.position.x;
+                bounce_tmp.z = 0;
+                tf.position = bounce_tmp;
+            }
         }
 
         if (tf.position.y < -5 || Mathf.Abs(tf.position.x) > 3)
@@ -78,10 +93,10 @@ public class EnemyBulletCont_t1 : MonoBehaviour
         }
         //Debug.Log((int)Mathf.Round((tf.position.x + 3) * 5) + "," + (int)Mathf.Round((tf.position.y + 5) * 5));
 
-        if (tf.position.z != 1)
+        if (tf.position.z != 0)
         {
             tf_tmp = tf.position;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 5;
                 P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5) + 1, 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5), 0, 49)].risk += 3 * (35 - i) / 35;

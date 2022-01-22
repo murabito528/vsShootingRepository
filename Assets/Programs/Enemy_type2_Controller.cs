@@ -25,6 +25,8 @@ public class Enemy_type2_Controller : MonoBehaviour
     GameObject P1Player;
 
     Vector3 vec_tmp;
+    SpriteRenderer spriterenderer;
+    Color32 color32;
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +35,11 @@ public class Enemy_type2_Controller : MonoBehaviour
         MainCamera = GameObject.FindWithTag("MainCamera");
 
         EBulletPool_t1 = MainCamera.GetComponent<EnemyBulletpool_t1>().Pool;
-        BulletPool = P1Player.GetComponent<ShotBullets>().Pool;
+        BulletPool = MainCamera.GetComponent<Bullet_weakt1_Pool>().Pool;
         Enemy_t2Pool = MainCamera.GetComponent<Enemy_Pool_t2>().Pool;
 
         epc = MainCamera.GetComponent<EffectPoolController>();
+        spriterenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
 
         rb = GetComponent<Rigidbody2D>();
         tf = GetComponent<Transform>();
@@ -112,6 +115,23 @@ public class Enemy_type2_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tf.position.z == 0)
+        {
+            color32 = spriterenderer.color;
+            color32.r = 255;
+            color32.g = 255;
+            color32.b = 255;
+            spriterenderer.material.color = color32;
+        }
+        else
+        {
+            color32 = spriterenderer.color;
+            color32.r = 72;
+            color32.g = 64;
+            color32.b = 64;
+            spriterenderer.material.color = color32;
+        }
+
         rb.MovePosition(transform.position + transform.up * speed);
 
         if (shotwait > waittime)
@@ -156,13 +176,23 @@ public class Enemy_type2_Controller : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.transform.position.z == this.gameObject.transform.position.z && collision.CompareTag("P1bullet"))
+        if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1bullet"))
         {
             HP--;
             BulletPool.Release(collision.gameObject);
             if (HP <= 0)
             {
                 //Debug.Log("HP:" + HP);
+                epc.BurstEffect(transform.position, transform.rotation);
+                Enemy_t2Pool.Release(this.gameObject);
+            }
+        }
+        if(tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2bullet"))
+        {
+            HP--;
+            BulletPool.Release(collision.gameObject);
+            if (HP <= 0)
+            {
                 epc.BurstEffect(transform.position, transform.rotation);
                 Enemy_t2Pool.Release(this.gameObject);
             }
