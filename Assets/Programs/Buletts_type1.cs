@@ -24,49 +24,6 @@ public class Buletts_type1 : MonoBehaviour
     void Update()
     {
         tf.position += tf.up * speed;
-        color32.a = 255;
-        if (this.tag == "P1bullet")
-        {
-            if (tf.position.z == 0)
-            {
-                //color32 = spriterenderer.color;
-                color32.r = 0;
-                color32.g = 255;
-                color32.b = 0;
-
-                //spriterenderer.material.color = color32;
-            }
-            else
-            {
-                //color32 = spriterenderer.color;
-                color32.r = 0;
-                color32.g = 64;
-                color32.b = 0;
-                //spriterenderer.material.color = color32;
-            }
-            //Debug.Log("?");
-        }
-        if (this.tag == "P2bullet")
-        {
-            if (tf.position.z == 0)
-            {
-                //color32 = spriterenderer.color;
-                color32.r = 255;
-                color32.g = 0;
-                color32.b = 0;
-                //spriterenderer.material.color = color32;
-            }
-            else
-            {
-                //color32 = spriterenderer.color;
-                color32.r = 128;
-                color32.g = 0;
-                color32.b = 0;
-                //spriterenderer.material.color = color32;
-            }
-            //Debug.Log("??");
-        }
-        spriterenderer.material.color = color32;
         if (tf.position.y > 5)
         {
             rotate_tmp.x = 0;
@@ -119,5 +76,54 @@ public class Buletts_type1 : MonoBehaviour
                 //spriterenderer.material.color = color32;
             }
         }
+    }
+
+    void LateUpdate()
+    {
+        color32.a = 255;
+        if (this.tag == "P1bullet")
+        {
+            if (tf.position.z == 0)
+            {
+                color32.r = 0;
+                color32.g = 255;
+                color32.b = 0;
+            }
+            else
+            {
+                color32.r = 0;
+                color32.g = 64;
+                color32.b = 0;
+            }
+        }
+        else
+        {
+            if (tf.position.z == 0)
+            {
+                color32.r = 255;
+                color32.g = 0;
+                color32.b = 0;
+            }
+            else
+            {
+                color32.r = 128;
+                color32.g = 0;
+                color32.b = 0;
+            }
+        }
+        spriterenderer.color = color32;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1player"))//P1‘¤
+        {
+            PlayerController.p1hp--;
+        }
+        if (tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2player"))//P2‘¤
+        {
+            P2Controller.p2hp--;
+        }
+
     }
 }

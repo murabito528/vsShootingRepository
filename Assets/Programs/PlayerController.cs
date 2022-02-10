@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     Vector2 Goalpos;
     Vector2 Lastpos;
 
+    static public int p1hp;
+
     Transform tf;
     Rigidbody2D rb;
 

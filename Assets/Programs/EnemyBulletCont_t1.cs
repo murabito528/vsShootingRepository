@@ -50,7 +50,7 @@ public class EnemyBulletCont_t1 : MonoBehaviour
             color32.r = 255;
             color32.g = 255;
             color32.b = 255;
-            spriterenderer.material.color = color32;
+            spriterenderer.color = color32;
         }
         else
         {
@@ -58,7 +58,7 @@ public class EnemyBulletCont_t1 : MonoBehaviour
             color32.r = 64;
             color32.g = 64;
             color32.b = 64;
-            spriterenderer.material.color = color32;
+            spriterenderer.color = color32;
         }
 
         if (tf.position.y > 5)

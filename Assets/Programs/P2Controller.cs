@@ -27,6 +27,7 @@ public class P2Controller : MonoBehaviour
     Vector3 vec_tmp;
     public static Node[][] node;
     public static int[][] split_risk;
+    public static int p2hp;
     void Start()
     {
         tf = transform;

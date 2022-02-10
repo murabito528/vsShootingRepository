@@ -10,10 +10,8 @@ public class EnemySummoner : MonoBehaviour
     public ObjectPool<GameObject> Enemy_t1Pool;
     public ObjectPool<GameObject> Enemy_t2Pool;
 
-    public int delay;
-    public int frame;
-    Transform tf;
-    Quaternion default_rotate;
+    public int delay,delay2;
+    public int frame,frame2;
 
     int before_rnd;
 
@@ -43,8 +41,8 @@ public class EnemySummoner : MonoBehaviour
             switch (rnd)
             {
                 case 0:
-                    vec.x = 2.5f;
-                    vec.y = 2.5f;
+                    vec.x = 2.8f;
+                    vec.y = 2.8f;
                     vec.z = 0;
                     position = vec;
                     vec.x = 0;
@@ -53,8 +51,8 @@ public class EnemySummoner : MonoBehaviour
                     rotation = Quaternion.Euler(vec);
                     break;
                 case 1:
-                    vec.x = -2.5f;
-                    vec.y = 2.5f;
+                    vec.x = -2.8f;
+                    vec.y = 2.8f;
                     vec.z = 0;
                     position = vec;
                     vec.x = 0;
@@ -64,7 +62,7 @@ public class EnemySummoner : MonoBehaviour
                     break;
                 case 2:
                     vec.x = -2f;
-                    vec.y = -5f;
+                    vec.y = -5.5f;
                     vec.z = 0;
                     position = vec;
                     vec.x = 0;
@@ -74,7 +72,7 @@ public class EnemySummoner : MonoBehaviour
                     break;
                 case 3:
                     vec.x = 2f;
-                    vec.y = -5f;
+                    vec.y = -5.5f;
                     vec.z = 0;
                     position = vec;
                     vec.x = 0;
@@ -87,6 +85,62 @@ public class EnemySummoner : MonoBehaviour
             frame = 0;
         }
         frame++;
+
+        if (frame2 > delay2)
+        {
+            int rnd = Random.Range(0, 4);
+            while (rnd == before_rnd)
+            {
+                rnd = Random.Range(0, 4);
+            }
+
+            switch (rnd)
+            {
+                case 0:
+                    vec.x = 2.8f;
+                    vec.y = 2.8f;
+                    vec.z = 1;
+                    position = vec;
+                    vec.x = 0;
+                    vec.y = 0;
+                    vec.z = 135;
+                    rotation = Quaternion.Euler(vec);
+                    break;
+                case 1:
+                    vec.x = -2.8f;
+                    vec.y = 2.8f;
+                    vec.z = 1;
+                    position = vec;
+                    vec.x = 0;
+                    vec.y = 0;
+                    vec.z = -135;
+                    rotation = Quaternion.Euler(vec);
+                    break;
+                case 2:
+                    vec.x = -2f;
+                    vec.y = -5.5f;
+                    vec.z = 1;
+                    position = vec;
+                    vec.x = 0;
+                    vec.y = 0;
+                    vec.z = 0;
+                    rotation = Quaternion.Euler(vec);
+                    break;
+                case 3:
+                    vec.x = 2f;
+                    vec.y = -5.5f;
+                    vec.z = 1;
+                    position = vec;
+                    vec.x = 0;
+                    vec.y = 0;
+                    vec.z = 0;
+                    rotation = Quaternion.Euler(vec);
+                    break;
+            }
+            StartCoroutine(summon(position, rotation));
+            frame2 = 0;
+        }
+        frame2++;
     }
 
     IEnumerator summon(Vector3 pos, Quaternion qua)
@@ -95,25 +149,27 @@ public class EnemySummoner : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             go = Enemy_t1Pool.Get();
-            pos.z = 0;
+            //pos.z = 0;
             go.transform.position = pos;
             go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
             //for (int j = 0; j < 15; j++) yield return null;
-
+            /*
             go = Enemy_t1Pool.Get();
             pos.z = 1;
             go.transform.position = pos;
             go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
+            */
             for (int j = 0; j < 15; j++) yield return null;
         }
         go = Enemy_t2Pool.Get();
-        pos.z = 0;
+        //pos.z = 0;
         go.transform.position = pos;
         go.transform.rotation = qua;
-
+        /*
         go = Enemy_t2Pool.Get();
         pos.z = 1;
         go.transform.position = pos;
         go.transform.rotation = qua;
+        */
     }
 }

@@ -30,6 +30,18 @@ public class ShotBullets : MonoBehaviour
             var go = BulletPool.Get();
             go.transform.position = this.tf.position + tf.right * 0.15f;
             go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * -0);
+
+            if (tf.position.z == 0)
+            {
+                go.tag = "P1bullet";
+                //Debug.Log("shotp1");
+            }
+            else
+            {
+                go.tag = "P2bullet";
+                //Debug.Log("shotp2");
+            }
+
             go = BulletPool.Get();
             go.transform.position = this.tf.position + tf.right * -0.15f;
             go.transform.rotation = Quaternion.Euler(default_rotate.eulerAngles * 0);

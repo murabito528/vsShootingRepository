@@ -55,7 +55,6 @@ public class Enemy_type1_Controller : MonoBehaviour
         turn = false;
     }
 
-
     void OnDisable()
     {
         //epc.BurstEffect(transform.position,transform.rotation);
@@ -115,7 +114,7 @@ public class Enemy_type1_Controller : MonoBehaviour
             color32.r = 255;
             color32.g = 255;
             color32.b = 255;
-            spriterenderer.material.color = color32;
+            spriterenderer.color = color32;
         }
         else
         {
@@ -123,7 +122,7 @@ public class Enemy_type1_Controller : MonoBehaviour
             color32.r = 64;
             color32.g = 72;
             color32.b = 64;
-            spriterenderer.material.color = color32;
+            spriterenderer.color = color32;
         }
 
         rb.MovePosition(transform.position + transform.up * speed);
@@ -226,20 +225,5 @@ public class Enemy_type1_Controller : MonoBehaviour
                 EnemyPool.Release(this.gameObject);
             }
         }
-
-
-        /*
-        if(collision.gameObject.transform.position.z == this.gameObject.transform.position.z&&collision.CompareTag("P1bullet"))
-        {
-            HP--;
-            BulletPool.Release(collision.gameObject);
-            if (HP <= 0)
-            {
-                //Debug.Log("HP:" + HP);
-                epc.BurstEffect(transform.position, transform.rotation);
-                EnemyPool.Release(this.gameObject);
-            }
-        }
-        */
     }
 }
