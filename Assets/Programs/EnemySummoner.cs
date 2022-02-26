@@ -30,6 +30,11 @@ public class EnemySummoner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.game_end > 0)
+        {
+            return;
+        }
+
         if (frame > delay)
         {
             int rnd = Random.Range(0, 4);

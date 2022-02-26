@@ -25,6 +25,11 @@ public class ShotBullets : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.game_end > 0)
+        {
+            return;
+        }
+
         if (delay <= frame && (tf.position.z == 1 || Input.touchCount == 1))
         {
             var go = BulletPool.Get();

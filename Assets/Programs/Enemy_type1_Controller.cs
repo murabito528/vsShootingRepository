@@ -187,6 +187,14 @@ public class Enemy_type1_Controller : MonoBehaviour
 
         if(Mathf.Abs(this.transform.position.x) >= 3.5 || Mathf.Abs(this.transform.position.y) >= 6)
         {
+            if(tf.position.z == 0)
+            {
+                GameManager.p1chain = 0;
+            }
+            else
+            {
+                GameManager.p2chain = 0;
+            }
             EnemyPool.Release(this.gameObject);
         }
 
@@ -208,22 +216,28 @@ public class Enemy_type1_Controller : MonoBehaviour
         if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1bullet"))//P1‘¤
         {
             HP--;
-            BulletPool.Release(collision.gameObject);
             if (HP <= 0)
             {
+                PlayerController.p1score += 1000;
+                GameManager.p1exp++;
                 epc.BurstEffect(transform.position, transform.rotation);
                 EnemyPool.Release(this.gameObject);
+                GameManager.p1chain++;
             }
+            BulletPool.Release(collision.gameObject);
         }
         if (tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2bullet"))//P2‘¤
         {
             HP--;
-            BulletPool.Release(collision.gameObject);
             if (HP <= 0)
             {
+                P2Controller.p2score += 1000;
+                GameManager.p2exp++;
                 epc.BurstEffect(transform.position, transform.rotation);
+                GameManager.p2chain++;
                 EnemyPool.Release(this.gameObject);
             }
+            BulletPool.Release(collision.gameObject);
         }
     }
 }

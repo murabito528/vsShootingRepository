@@ -51,6 +51,10 @@ public class EnemyBulletCont_t1 : MonoBehaviour
             color32.g = 255;
             color32.b = 255;
             spriterenderer.color = color32;
+            if (GameManager.p1invincible > 0||GameManager.game_end>0)
+            {
+                tf.position = Vector3.one * -100;
+            }
         }
         else
         {
@@ -59,6 +63,10 @@ public class EnemyBulletCont_t1 : MonoBehaviour
             color32.g = 64;
             color32.b = 64;
             spriterenderer.color = color32;
+            if (GameManager.p2invincible > 0 || GameManager.game_end > 0)
+            {
+                tf.position = Vector3.one * -100;
+            }
         }
 
         if (tf.position.y > 5)
@@ -105,6 +113,22 @@ public class EnemyBulletCont_t1 : MonoBehaviour
                 P2Controller.node[(int)Mathf.Clamp(Mathf.Round((tf_tmp.x + 3) * 5), 0, 29)][(int)Mathf.Clamp((int)Mathf.Round((tf_tmp.y + 5) * 5) - 1, 0, 49)].risk += 3 * (35 - i) / 35;
                 tf_tmp += tf.up * speed;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1player"))//P1‘¤
+        {
+            GameManager.Ebullethitp1();
+            tf.position = Vector3.one * -100;
+            Debug.Log("hit");
+        }
+        if (tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2player"))//P2‘¤
+        {
+            GameManager.Ebullethitp2();
+            P2Controller.p2hp--;
+            tf.position = Vector3.one * -100;
         }
     }
 }

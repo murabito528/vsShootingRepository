@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     Vector2 Lastpos;
 
     static public int p1hp;
+    static public int p1score;
 
     Transform tf;
     Rigidbody2D rb;
@@ -25,8 +26,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.game_end > 0)
+        {
+            return;
+        }
         int touchcount = Input.touchCount;
-
         if (touchcount > 0)
         {
             for (int i = 0; i < touchcount; i++)

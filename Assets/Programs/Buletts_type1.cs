@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Pool;
+using UnityEngine.Pool;
 
 public class Buletts_type1 : MonoBehaviour
 {
@@ -116,14 +116,17 @@ public class Buletts_type1 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1player"))//P1‘¤
+        if (tf.position.z == 0 && collision.gameObject.transform.position.z == 0 && collision.CompareTag("P1player") && this.CompareTag("P2bullet"))//P1‘¤
         {
             PlayerController.p1hp--;
+            P2Controller.p2score += 10;
+            tf.position = Vector3.one * -100;
         }
-        if (tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2player"))//P2‘¤
+        if (tf.position.z == 1 && collision.gameObject.transform.position.z == 1 && collision.CompareTag("P2player") && this.CompareTag("P1bullet"))//P2‘¤
         {
             P2Controller.p2hp--;
+            PlayerController.p1score += 10;
+            tf.position = Vector3.one * -100;
         }
-
     }
 }

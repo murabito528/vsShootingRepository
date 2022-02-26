@@ -371,14 +371,16 @@
 "Assets/Programs/Enemy_Pool_t2.cs"
 "Assets/Programs/Enemy_type1_Controller.cs"
 "Assets/Programs/Enemy_type2_Controller.cs"
-"Assets/Programs/HPbarController.cs"
+"Assets/Programs/GameManager.cs"
+"Assets/Programs/HPbar_Controller.cs"
+"Assets/Programs/Laser_Controller.cs"
 "Assets/Programs/P2Controller.cs"
 "Assets/Programs/PlayerController.cs"
 "Assets/Programs/ReturnToPool.cs"
 "Assets/Programs/ReturnToPool_effect.cs"
 "Assets/Programs/Rotate_always.cs"
 "Assets/Programs/ShotBullets.cs"
-"Assets/Programs/StartSetting.cs"
+"Assets/Programs/StatsController.cs"
 "Assets/Programs/TimerController.cs"
 -langversion:9.0
 

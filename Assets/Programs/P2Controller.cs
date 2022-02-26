@@ -28,6 +28,7 @@ public class P2Controller : MonoBehaviour
     public static Node[][] node;
     public static int[][] split_risk;
     public static int p2hp;
+    public static int p2score;
     void Start()
     {
         tf = transform;
@@ -59,6 +60,10 @@ public class P2Controller : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.game_end > 0)
+        {
+            return;
+        }
         for (int i = 0; i < 30; i++)
         {
             for (int j = 0; j < 50; j++)
@@ -92,6 +97,10 @@ public class P2Controller : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GameManager.game_end > 0)
+        {
+            return;
+        }
         if (frame > 5)
         {
             //goalnode = new Node((int)Random.Range(0, 29), (int)Random.Range(0, 49), null);
