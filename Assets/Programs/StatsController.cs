@@ -27,6 +27,14 @@ public class StatsController : MonoBehaviour
             str_tmp.Append(((int)Mathf.Floor(dispscore)).ToString("D8"));
             str_tmp.Append("\nChain:");
             str_tmp.Append((Mathf.Min(GameManager.p1chain, 99)).ToString("D2"));
+            if (GameManager.p1chain >= 99)
+            {
+                tmpgui.color = Color.red;
+            }
+            else
+            {
+                tmpgui.color = Color.white;
+            }
         }
         else
         {
@@ -35,6 +43,14 @@ public class StatsController : MonoBehaviour
             str_tmp.Append(((int)Mathf.Floor(dispscore)).ToString("D8"));
             str_tmp.Append("\nChain:");
             str_tmp.Append((Mathf.Min(GameManager.p2chain,99)).ToString("D2"));
+            if (GameManager.p2chain >= 99)
+            {
+                tmpgui.color = Color.red;
+            }
+            else
+            {
+                tmpgui.color = Color.white;
+            }
         }
         tmpgui.text = str_tmp.ToString();
     }

@@ -57,5 +57,21 @@ public class PlayerController : MonoBehaviour
 
             }
         }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            tf.position += transform.right*0.1f;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            tf.position -= transform.right*0.1f;
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            tf.position += transform.up * 0.1f;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            tf.position -= transform.up * 0.1f;
+        }
     }
 }

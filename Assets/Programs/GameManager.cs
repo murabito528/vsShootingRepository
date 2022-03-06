@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public static int p2exp;
     public static int p1chain;
     public static int p2chain;
+    public GameObject aura_prefab;
+    public GameObject p1;
 
     void Awake()
     {
@@ -66,14 +68,20 @@ public class GameManager : MonoBehaviour
         {
             p1lv++;
             p1exp = 0;
-            p1nextexp += 30;
+            p1nextexp += 15;
+            //p1chain = 99;
         }
         if (p2lv < 8 && p2nextexp < p2exp)
         {
             p2lv++;
             p2exp = 0;
-            p2nextexp += 30;
+            p2nextexp += 15;
         }
+        /*if (Input.GetKeyDown(KeyCode.M))
+        {
+            p1chain = 99;
+            p1lv = 8;
+        }*/
     }
 
     static public void Ebullethitp1()

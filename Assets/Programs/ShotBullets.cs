@@ -29,8 +29,7 @@ public class ShotBullets : MonoBehaviour
         {
             return;
         }
-
-        if (delay <= frame && (tf.position.z == 1 || Input.touchCount == 1))
+        if (delay <= frame &&( (tf.position.z == 1 || Input.touchCount == 1) || Input.GetKey(KeyCode.Z)))
         {
             var go = BulletPool.Get();
             go.transform.position = this.tf.position + tf.right * 0.15f;

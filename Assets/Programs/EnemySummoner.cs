@@ -10,8 +10,8 @@ public class EnemySummoner : MonoBehaviour
     public ObjectPool<GameObject> Enemy_t1Pool;
     public ObjectPool<GameObject> Enemy_t2Pool;
 
-    public int delay,delay2;
-    public int frame,frame2;
+    public float delay,delay2;
+    public float frame,frame2;
 
     int before_rnd;
 
@@ -88,6 +88,11 @@ public class EnemySummoner : MonoBehaviour
             }
             StartCoroutine(summon(position, rotation));
             frame = 0;
+            delay = 45 + 50 * (1 - GameManager.p1lv * 0.1f);
+            if (GameManager.p1chain >= 99)
+            {
+                delay -= 20;
+            }
         }
         frame++;
 
@@ -144,6 +149,11 @@ public class EnemySummoner : MonoBehaviour
             }
             StartCoroutine(summon(position, rotation));
             frame2 = 0;
+            delay2 = 45 + 50 * (1 - GameManager.p2lv * 0.1f);
+            if (GameManager.p2chain >= 99)
+            {
+                delay2 -= 20;
+            }
         }
         frame2++;
     }
@@ -154,27 +164,12 @@ public class EnemySummoner : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             go = Enemy_t1Pool.Get();
-            //pos.z = 0;
             go.transform.position = pos;
             go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
-            //for (int j = 0; j < 15; j++) yield return null;
-            /*
-            go = Enemy_t1Pool.Get();
-            pos.z = 1;
-            go.transform.position = pos;
-            go.transform.rotation = qua;//Quaternion.Euler(rotate * 135);
-            */
             for (int j = 0; j < 15; j++) yield return null;
         }
         go = Enemy_t2Pool.Get();
-        //pos.z = 0;
         go.transform.position = pos;
         go.transform.rotation = qua;
-        /*
-        go = Enemy_t2Pool.Get();
-        pos.z = 1;
-        go.transform.position = pos;
-        go.transform.rotation = qua;
-        */
     }
 }
